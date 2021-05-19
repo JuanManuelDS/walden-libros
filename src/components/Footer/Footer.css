@@ -1,0 +1,65 @@
+div.footer {
+    width: 100%;
+    height: 180px;
+    background-color: #1c3b08;
+    color: white;
+    margin: 0px;
+}
+
+div.row {
+    max-width: 1366px;
+    margin: 0px auto;
+    height: 100%;
+}
+
+div.col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.direccion,
+.redes{
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.direccion img{
+    width: 160px;
+    margin: 10px;
+}
+
+.redes img {
+    margin: 10px;
+}
+
+.redes {
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+.redes p {
+    margin: 0px;
+}
+
+.copyright {
+    height: 20px;
+    font-size: .8rem;
+    text-align: center;
+}
+
+.contacto {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+}
+
+.contacto img{
+    height: 20px;
+    width: 20px;
+    margin: 3px;
+}
+
+
+

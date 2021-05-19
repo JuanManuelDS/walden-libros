@@ -1,0 +1,73 @@
+div.ItemDetail{
+    width: fit-content;
+    max-width: 1024px;
+    height: fit-content;
+    min-height: 70vh;
+    margin: 50px auto;
+    display: flex;
+    
+}
+
+div.ItemDetail img {
+    height: 500px;
+    width: auto;
+}
+
+
+.ItemDetail div.detalles .titulo {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.ItemDetail div.detalles  .autor{
+    font-size: 1.7rem;
+}
+
+.ItemDetail div.detalles .descripcion{
+    font-size: 1.3rem;
+    max-width: 400px;
+}
+
+.ItemDetail form#ItemDetailForm {
+    margin-top: 25px;
+}
+
+#ItemDetailForm {
+    width: fit-content;
+}
+
+.ItemDetail form#ItemDetailForm select, #FinalizarCompraButton, form#ItemDetailForm input, #ItemCountSpan , .ItemCounterButton {
+    background-color: #2c2c2c;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    margin:5px;
+    border: none;
+}
+
+#FinalizarCompraButton {
+    width: 97%
+}
+
+.ItemDetail form#ItemDetailForm select {
+    width: 220px;
+}
+
+.ItemDetail form#ItemDetailForm select:focus{
+    border: none;
+}
+
+.ItemDetail form#ItemDetailForm input {
+    width: 180px;
+}
+
+.ItemDetail form#ItemDetailForm select option {
+    background-color: #d8d7d7;
+    color: black;
+}
+
+#itemDetailImg {
+    margin: 15px 20px 0px 0px;
+}

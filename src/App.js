@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import  {BrowserRouter, Switch, Route} from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar';
+import ItemListContainer from './components/ItemListContainer/ItemListContainer';
+import React from 'react';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import Footer from './components/Footer/Footer';
+import Home from './components/Home/Home';
+import {CarritoFunctions} from './context/CarritoContext'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <CarritoFunctions>
+      <React.Fragment>
+        <BrowserRouter>
+          <NavBar />
+          <Switch>
+            
+            <Route path='/detail/:id'>
+              <ItemDetailContainer />
+            </Route>
+
+            <Route exact path='/categories/:category'>
+              <ItemListContainer />
+            </Route>
+
+            <Route exact path='/categories'>
+              <ItemListContainer />
+            </Route>
+
+            <Route path='/'>
+              <Home />
+            </Route>
+
+          </Switch>
+          <Footer />
+        </BrowserRouter>
+      </React.Fragment>
+    </CarritoFunctions>
+  )
 }
 
 export default App;

@@ -1,0 +1,92 @@
+main {
+    height: 100vh;
+    width: 100vw;
+    background-image: url(https://res.cloudinary.com/dpl0ypk3m/image/upload/v1621453664/WaldenLibros/Imagenes/libreria_ekivpr.jpg);
+    background-size: cover;
+}
+
+
+.home div.bgDiv{
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.514);
+    margin: 0px;
+}
+
+.home p.tituloHome{
+    display: block;
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    max-width: 1366px;
+    margin: 0px auto;
+}
+
+.home div.favoritos {
+    height: 520px;
+    width: 800px;
+    background: rgb(226, 226, 226);
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 35px;
+    position: relative;
+}
+
+.home p.favoritos-titulo {
+    color: black;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.home button.link {
+    border: none;
+    background-color: rgb(49, 49, 49);
+    font-weight: bold;
+    width: 170px;
+    height: 40px;
+    position: absolute;
+    top: 220px;
+}
+
+.home button.link span.text,
+.home button.link span.arrow {
+    padding: 0px;
+    line-height: 40px;
+    font-size: 1.2rem;
+    margin: 0px 10px;
+}
+
+.home button.link span.arrow {
+    float: right;
+    font-weight: bold;
+}
+
+.home div.carousel-item div {
+    position: relative;
+}
+
+.home div.carousel-item img {
+    height: 350px;
+    width: auto;
+    float: left;
+    margin: 20px 20px 20px 80px;
+}
+
+.home div.carousel-item div p.titulo{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.home div.carousel-item div p.autor {
+    font-size: 1.5rem;
+    color: rgb(51, 51, 51);
+}
+
+.home div.carousel-indicators{
+    margin: 20px 0px 0px 0px
+}
+

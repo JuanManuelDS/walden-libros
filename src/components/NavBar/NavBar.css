@@ -1,0 +1,42 @@
+nav {
+    width: 100%;
+    height: 80px;
+    background-color: #1c3b08;
+    color: white;
+    font-weight: bold;
+}
+
+nav div {
+    max-width: 1366px;
+    margin: 0px auto;
+}
+
+nav ul {
+    list-style: none;
+    float: right;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0px 10px;
+    font-size: 1.2rem;
+    padding: 0px 20px;
+}
+
+.navBar span {
+    font-size: 1.6rem;
+    font-weight: bold;
+    float: left;
+    line-height: 80px;
+    padding: 0px 40px;
+}
+
+img#carrito-img{ 
+    float: right;
+    margin: 22.5px 50px 22.5px 10px;
+    width: 35px;
+    height: 35px;
+}

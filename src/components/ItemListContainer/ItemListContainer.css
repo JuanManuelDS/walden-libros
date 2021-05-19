@@ -1,0 +1,31 @@
+div.ItemListContainer {
+    height: fit-content;
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.loadingGIF{
+    height: 500px;
+    width: auto;
+}
+
+#ItemListContainerFiltros {
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 150px 30px 0px 0px;
+    height: 140px;
+}
+
+#ItemListContainerFiltros p {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+#ItemListContainerFiltros ul {
+    list-style: none;
+    padding: 0px 0px 0px 10px;
+}
