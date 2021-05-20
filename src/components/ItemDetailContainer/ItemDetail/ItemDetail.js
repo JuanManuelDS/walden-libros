@@ -18,11 +18,11 @@ export default function ItemDetail({libro}) {
                 <p className='descripcion'>{libro.descripcion}</p>
                 <form id='ItemDetailForm'>
                 {itemCountVisibility ? <ItemCounter /> : <Link style={{textDecoration: 'none'}} to={'/cart'}><button id='FinalizarCompraButton'>Finalizar compra</button><br /></Link>}
-                    <select name='formatoLibro' id='formatoLibro'>
-                        <option value='tapaDura'>Tapa dura ${libro.precio[0]}</option>
-                        <option value='tapaBlanda'>Tapa blanda ${libro.precio[1]}</option>
-                        <option value='ebook'>Ebook ${libro.precio[2]}</option>
-                    </select>
+                    {<select name='formatoLibro' id='formatoLibro'>
+                        <option value='tapaDura'>Tapa dura ${libro.formatos.tapaDura.precio}</option>
+                        <option value='tapaBlanda'>Tapa blanda ${libro.formatos.tapaBlanda.precio}</option>
+                        <option value='ebook'>Ebook ${libro.formatos.ebook.precio}</option>
+                    </select>}
                     <input type='submit' onClick={(e)=>addItem(e,libro,setItemCountVisibility)} value='Agregar al Carrito'  />
                 </form>
             </div>
