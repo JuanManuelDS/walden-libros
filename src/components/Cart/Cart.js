@@ -5,7 +5,7 @@ import {CarritoContext} from '../../context/CarritoContext';
 import './Cart.css'
 
 export default function Cart(){
-    const {cart, deleteItem, cleanCart, total} = useContext(CarritoContext);
+    const {cart, deleteItem, cleanCart, costoEnvio, total} = useContext(CarritoContext);
 
     return(
          
@@ -31,12 +31,13 @@ export default function Cart(){
                             </div>
                             <div>${lib.pricePU}</div>
                             <div>{lib.quantity}</div>
-                            <div>{lib.price}</div>
+                            <div>${lib.price}</div>
                         </div>
                     )
                 })}
                 <div id='cartFooter'>
-                    <h4>Total: ${total}</h4>
+                    <h5>Envío: {costoEnvio ? '$'+costoEnvio : <span id='envioGratis'>Gratis</span>}</h5>
+                    <h4>Total: ${total+costoEnvio}</h4>
                 </div>
             </>
             :

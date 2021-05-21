@@ -5,7 +5,9 @@ export const CarritoContext = React.createContext([]);
 export const CarritoFunctions = ({children}) => {
 
     const [cart, setCart] = useState([]);
+    const [costoEnvio, setCostoEnvio] = useState(459);
     const [total, setTotal] = useState(0);
+    console.log(total)
 
     const addItem = (e,libro,setItemCountVisibility) => {
         e.preventDefault();
@@ -56,6 +58,11 @@ export const CarritoFunctions = ({children}) => {
         setTotal(0)
     };
 
+    useEffect(()=>{
+        total>4500 && setCostoEnvio(0)
+        total<=4500 && setCostoEnvio(459)
+    }, [total]);
+
     const isInCart = (libro, formato) => {
       
         let index = -1;
@@ -103,7 +110,7 @@ export const CarritoFunctions = ({children}) => {
     
 
     return(
-        <CarritoContext.Provider value={{addItem, deleteItem, cleanCart,total, cart}}>
+        <CarritoContext.Provider value={{addItem, deleteItem, cleanCart,total, cart, costoEnvio}}>
             {children}
         </CarritoContext.Provider>
     )
