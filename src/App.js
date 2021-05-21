@@ -6,6 +6,7 @@ import React from 'react';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
+import Cart from'./components/Cart/Cart';
 import {CarritoFunctions} from './context/CarritoContext'
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
 
             <Route exact path='/categories'>
               <ItemListContainer />
+            </Route>
+
+            <Route exact path='/cart'>
+              <Cart />
             </Route>
 
             <Route path='/'>

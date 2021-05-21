@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 
 export const CarritoContext = React.createContext([]);
 
@@ -9,14 +9,11 @@ export const CarritoFunctions = ({children}) => {
 
     const addItem = (e,libro,setItemCountVisibility) => {
         e.preventDefault();
-        //Me devuelve el formato del libro seleccionado
-        const bookFormat = e.target.parentElement.querySelector('#formatoLibro').value;
-        //Me devuelve la cantidad seleccionada
-        /* const itemQuantity = e.target.parentElement.querySelector('#ItemCountSpan').textContent; */
-        const itemQuantity = Number(e.target.parentElement.querySelector('#ItemCountSpan').textContent);
-        const isInCartIndex = isInCart(libro, bookFormat);
-        //Busco el precio del formato elegido
-        let precio = searchPrice(libro, bookFormat);
+        const bookFormat = e.target.parentElement.querySelector('#formatoLibro').value,
+        itemQuantity = Number(e.target.parentElement.querySelector('#ItemCountSpan').textContent),
+        precio = searchPrice(libro, bookFormat), 
+        itemId = searchId(libro, bookFormat), 
+        isInCartIndex = isInCart(libro, bookFormat);
 
         setItemCountVisibility(false);
 
@@ -26,7 +23,7 @@ export const CarritoFunctions = ({children}) => {
             newCart[isInCartIndex].quantity+=itemQuantity;
             //ERROR: necesito saber el precio del item y después multiplicarlo por la cantidad
             newCart[isInCartIndex].price = precio * newCart[isInCartIndex].quantity;
-            setTotal(total+precio)
+            setTotal(total+precio*itemQuantity)
             setCart([...newCart])
            
         } else {
@@ -35,20 +32,20 @@ export const CarritoFunctions = ({children}) => {
                 item: libro,
                 format: bookFormat,
                 price: precio * itemQuantity,
-                quantity: itemQuantity
+                pricePU: precio,
+                quantity: itemQuantity,
+                id: itemId
             }
-            setTotal(total+precio)
+            setTotal(total+newItem.price)
             setCart([...cart, newItem]);
         }
-        console.log(cart)
-        
     }
 
     const deleteItem = (e, libro)=>{
-        const bookFormat = e.target.parentElement.querySelector('#formatoLibro').value;
-        const itemToDelete = isInCart(libro, bookFormat);
+        
+        const itemToDelete = cart.indexOf(libro);
         let newCart = [...cart];
-        const amountToDelete = newCart[itemToDelete].price * newCart[itemToDelete].quantity
+        const amountToDelete = newCart[itemToDelete].price;
         newCart.splice(itemToDelete, 1);
         setTotal(total - amountToDelete);
         setCart([...newCart])
@@ -59,40 +56,54 @@ export const CarritoFunctions = ({children}) => {
         setTotal(0)
     };
 
-    const isInCart = (libro, bookFormat) => {
-        //Checkea si algun el id del libro y el formato de algún item del carrito coincide con el nuevo item
+    const isInCart = (libro, formato) => {
       
         let index = -1;
+        let idLibro = searchId(libro, formato)
 
         cart.forEach((lib, ind) => {
-            if(lib.format === bookFormat && lib.item.id === libro.id){
+            if(lib.id === idLibro){
                 index = ind
             }
         })
         return index;
     }
 
-    //Busca el precio correcto del item seleccionado
     const searchPrice=(libro, formatoLibro)=>{
         let price = 0
-        
         switch(formatoLibro){
             case 'tapaDura':
-                price=libro.precio[0]
+                price=libro.formatos.tapaDura.precio
                 break;
             case 'tapaBlanda':
-                price=libro.precio[1]
+                price=libro.formatos.tapaBlanda.precio
                 break;
             case 'ebook':
-                price=libro.precio[2]
+                price=libro.formatos.ebook.precio
                 break;
         }
         return price;
     }
+
+    const searchId=(libro, formato) => {
+        let id = 0;
+        switch(formato){
+            case 'tapaDura':
+                id=libro.formatos.tapaDura.id
+                break;
+            case 'tapaBlanda':
+                id=libro.formatos.tapaBlanda.id
+                break;
+            case 'ebook':
+                id=libro.formatos.ebook.id
+                break;
+        }
+        return id;
+    }
     
 
     return(
-        <CarritoContext.Provider value={{addItem, deleteItem, cleanCart}}>
+        <CarritoContext.Provider value={{addItem, deleteItem, cleanCart,total, cart}}>
             {children}
         </CarritoContext.Provider>
     )

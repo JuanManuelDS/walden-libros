@@ -14,7 +14,6 @@ export default function ItemDetailContainer(){
         const itemcollection = db.collection('items').doc(`${id}`);
         itemcollection.get().then(qs => {
             setLibro({id: qs.id, ...qs.data()})
-            
         })
         .finally(()=>setLoading(false)); 
     }, []);

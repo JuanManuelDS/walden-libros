@@ -1,0 +1,66 @@
+div#cartWidget{
+    position: absolute;
+    width: 320px;
+    top: 80px;
+    right: 50px;
+    border: black solid 1px;
+    padding: 10px;
+    color: black;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 2;
+    background-color: white;
+}
+
+#CWVisible {
+    display: block;
+}
+
+#CWInvisible {
+    display: none;
+}
+
+table#cartWidget-table{
+    width: 100%;
+}
+
+table#cartWidget-table th {
+    line-height: 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: lightgray;
+}
+
+#deleteIcon{
+    color: red;
+    height: 27px;
+    width: 27px;
+}
+
+img.cartWidget-table-img{
+    height: 70px;
+    width: auto;
+}
+
+#cartWidget button{
+    font-weight: bold;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    margin: 10px 3px 0px 3px;
+}
+
+#cartWidget-table-btnVaciar {
+    width: 25%;
+    background-color: rgb(44, 44, 44);
+    color: white;
+    font-weight: bold;
+}
+
+#cartWidget-table-btnFinalizar{
+    width: 65%;
+    background: rgb(16, 85, 16);
+    color: white;
+}

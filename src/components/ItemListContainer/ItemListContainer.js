@@ -24,9 +24,6 @@ export default function ItemListContainer () {
 
         itemCollection.get()
             .then(querySnapshot=>{
-                querySnapshot.size === 0 && console.log('No hay items');
-                querySnapshot.size !== 0 && console.log(`Hay ${querySnapshot.size} items`);
-
                 //querySnapShot.docs nos da acceso a los 'documentos' de la colección
                 const documentos = querySnapshot.docs.map(doc => {
                     return {
@@ -35,7 +32,6 @@ export default function ItemListContainer () {
                     }
                 });
                 setItems(documentos)
-                console.log(documentos.forEach(doc=>console.log(doc.formatos)));
             })
             .catch(error => console.log(`Hay ocurrido un error: ${error}`))
             .finally(()=>setLoading(false));
