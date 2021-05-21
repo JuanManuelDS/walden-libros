@@ -35,6 +35,7 @@ export default function ItemListContainer () {
                     }
                 });
                 setItems(documentos)
+                console.log(documentos.forEach(doc=>console.log(doc.formatos)));
             })
             .catch(error => console.log(`Hay ocurrido un error: ${error}`))
             .finally(()=>setLoading(false));
