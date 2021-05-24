@@ -3,10 +3,12 @@ import {ImCart} from 'react-icons/im';
 import {TiDelete} from 'react-icons/ti'
 import {CarritoContext} from '../../../context/CarritoContext';
 import {Link} from 'react-router-dom';
-import './CartWidget.css'
+import './CartWidget.css';
+import {UserContext} from '../../../context/UserContext'
 
 export default function CartWidget(){
 
+    const {user} = useContext(UserContext);
     const {cart, deleteItem, cleanCart} = useContext(CarritoContext);
     const [CWVisibility, setCWVisibility] = useState(false);
 
@@ -44,7 +46,7 @@ export default function CartWidget(){
                             </tbody>
                         </table>
                         <button id='cartWidget-table-btnVaciar' onClick={cleanCart}>Vaciar</button>
-                        <Link to={'/cart'} style={{textDecoration: 'none'}}><button id='cartWidget-table-btnFinalizar'>Finalizar compra</button></Link>
+                        <Link to={`${user.name ? '/cart' : '/login'}`} style={{textDecoration: 'none'}}><button id='cartWidget-table-btnFinalizar'>Finalizar compra</button></Link>
                         </>
                         :
                         <><p>Todavía no agregaste ningun libro</p><Link to={'/categories'}><p>Ir a listado</p></Link></>}

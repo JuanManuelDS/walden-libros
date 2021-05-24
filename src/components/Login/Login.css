@@ -1,0 +1,29 @@
+div#login-container{
+    min-height: 75vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+div#login-content{
+    width: 450px;
+    margin: 20px auto;
+    border: black solid 1px;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+form#login-form>label{
+    margin: 10px 0px;
+}
+
+form#login-form{
+    display: flex;
+    flex-direction: column;
+}
+
+span.helper{
+    color: red;
+    font-weight: bold;
+    font-size: 0.9rem;
+}

@@ -1,11 +1,32 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import './Home.css'
 import {Link} from 'react-router-dom';
-import Catalogo from '../../Catalogo';
+import {getFirestore} from '../../firebase'
 
 export default function Home(){
+    
+    const [loading, setLoading] = useState(false);
+    const [top3, setTop3] = useState([])
 
-    const catalogo = Catalogo();
+    useEffect(()=>{
+        setLoading(true)
+        const dataBase = getFirestore();
+        const top3Collection = dataBase.collection('items').where('top3', '==', true);
+
+        top3Collection.get()
+        .then(qs => {
+            const top3 = qs.docs.map(doc => {
+                return {
+                    id: doc.id,
+                    ...doc.data()
+                }
+            })
+            setTop3(top3)
+        })
+        .then(()=>console.log(top3))
+        .catch(err => console.log(err))
+        .finally(()=>setLoading(false))
+    }, [])
     
     return (
         <main className='home'>
@@ -21,30 +42,19 @@ export default function Home(){
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src={catalogo[1].imagen} class="d-block" />
+                           {!loading ? 
+                           <>{top3.map((libro, ind) => <div class={`carousel-item ${ind===0 && 'active'}`}>
+                                <img src={libro.imagen} class="d-block" />
                                 <div>
-                                    <p className='titulo'>{catalogo[1].titulo}</p>
-                                    <p className='autor'>{catalogo[1].autor}</p>
-                                    <button className='link'><Link to={`/detail/${catalogo[1].id}`} style={{textDecoration: 'none', color: 'white'}}><span className='text'>Ver libro</span><span className='arrow'>&#8594; </span></Link></button>
+                                    <p className='titulo'>{libro.titulo}</p>
+                                    <p className='autor'>{libro.autor}</p>
+                                    <button className='link'><Link to={`/detail/${libro.id}`} style={{textDecoration: 'none', color: 'white'}}><span className='text'>Ver libro</span><span className='arrow'>&#8594; </span></Link></button>
                                 </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src={catalogo[3].imagen} class="d-block" />
-                                <div>
-                                    <p className='titulo'>{catalogo[3].titulo}</p>
-                                    <p className='autor'>{catalogo[3].autor}</p>
-                                    <button className='link'><Link to={`/detail/${catalogo[3].id}`} style={{textDecoration: 'none', color: 'white'}}><span className='text'>Ver libro</span><span className='arrow'>&#8594; </span></Link></button>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src={catalogo[5].imagen}class="d-block" />
-                                <div>
-                                    <p className='titulo'>{catalogo[5].titulo}</p>
-                                    <p className='autor'>{catalogo[5].autor}</p>
-                                    <button className='link'><Link to={`/detail/${catalogo[5].id}`} style={{textDecoration: 'none', color: 'white'}}><span className='text'>Ver libro</span><span className='arrow'>&#8594; </span></Link></button>
-                                </div>
-                            </div>
+                            </div>)}
+                            </>
+                            :
+                            <></>
+                            }
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

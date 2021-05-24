@@ -7,7 +7,6 @@ export const CarritoFunctions = ({children}) => {
     const [cart, setCart] = useState([]);
     const [costoEnvio, setCostoEnvio] = useState(459);
     const [total, setTotal] = useState(0);
-    console.log(total)
 
     const addItem = (e,libro,setItemCountVisibility) => {
         e.preventDefault();
