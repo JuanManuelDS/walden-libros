@@ -5,7 +5,7 @@ import {CarritoContext} from '../../context/CarritoContext';
 import './Cart.css'
 
 export default function Cart(){
-    const {cart, deleteItem, cleanCart, costoEnvio, total} = useContext(CarritoContext);
+    const {cart, deleteItem, createOrder, costoEnvio, idPedido, total} = useContext(CarritoContext);
 
     return(
          
@@ -39,6 +39,11 @@ export default function Cart(){
                     <h5>Envío: {costoEnvio ? '$'+costoEnvio : <span id='envioGratis'>Gratis</span>}</h5>
                     <h4>Total: ${total+costoEnvio}</h4>
                 </div>
+                <button id='order-btn' onClick={createOrder}>Realizar pedido</button>
+                {idPedido ? 
+                    <h4 id='finalizacion-pedido'>Id del pedido: {idPedido}</h4>
+                :
+                <></>}
             </>
             :
             <>

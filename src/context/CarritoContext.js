@@ -1,13 +1,34 @@
 import React, {useState, useEffect} from 'react';
+import { getFirestore} from '../firebase';
+import {useHistory} from 'react-router-dom'
 
 export const CarritoContext = React.createContext([]);
 
 export const CarritoFunctions = ({children}) => {
 
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(
+        localStorage.getItem('carrito')
+          ? cargarStorage
+          : []
+      );
     const [costoEnvio, setCostoEnvio] = useState(459);
     const [total, setTotal] = useState(0);
+    const [idPedido, setIdPedido] = useState();
+    const [stock, setStock] = useState();
 
+    function cargarStorage(){
+        return JSON.parse(localStorage.getItem('carrito'));
+    }
+
+    function almacenarStorage(){
+        localStorage.setItem('carrito', JSON.stringify(cart))
+    }
+
+    useEffect(()=>{
+        almacenarStorage();
+        setTotal(cart.reduce((tot, unit)=>tot+unit.price,0))
+    }, [cart]);
+  
     const addItem = (e,libro,setItemCountVisibility) => {
         e.preventDefault();
         const bookFormat = e.target.parentElement.querySelector('#formatoLibro').value,
@@ -22,9 +43,7 @@ export const CarritoFunctions = ({children}) => {
         if(isInCartIndex !== -1){
             let newCart = [...cart];
             newCart[isInCartIndex].quantity+=itemQuantity;
-            //ERROR: necesito saber el precio del item y después multiplicarlo por la cantidad
             newCart[isInCartIndex].price = precio * newCart[isInCartIndex].quantity;
-            setTotal(total+precio*itemQuantity)
             setCart([...newCart])
            
         } else {
@@ -37,7 +56,6 @@ export const CarritoFunctions = ({children}) => {
                 quantity: itemQuantity,
                 id: itemId
             }
-            setTotal(total+newItem.price)
             setCart([...cart, newItem]);
         }
     }
@@ -75,6 +93,80 @@ export const CarritoFunctions = ({children}) => {
         return index;
     }
 
+    function createOrder(){
+        const user = JSON.parse(localStorage.getItem('usuario'));
+        let order = {
+            buyer: user,
+            items: cart,
+            total: total
+        }
+        const db = getFirestore();
+        const orders = db.collection('orders');
+        orders.add(order)
+        .then(({id})=>{
+            setIdPedido(id);
+        })
+        .catch(err=>console.error(err))
+        .finally(()=>updateStock(order))
+    }
+
+    function checkStock(libro,e=null){
+        if(e === null){
+            setStock(libro.formatos.tapaDura.stock);
+        } else {
+            let formato = e.target.value;
+            switch(formato){
+                case 'tapaDura':
+                    setStock(libro.formatos.tapaDura.stock)
+                    break;
+                case 'tapaBlanda':
+                    setStock(libro.formatos.tapaBlanda.stock)
+                    break;
+                case 'ebook':
+                    setStock(libro.formatos.ebook.stock)
+                    break;
+            }
+        }
+    }
+
+    function updateStock(order){
+        const formato = order.items[0].format;
+        const cantidad = order.items[0].quantity;
+        let stockLeft= 0;
+        const db = getFirestore();
+        const items = db.collection('items').doc(order.items[0].item.id);
+        items.get()
+        .then(qs=>{
+            console.log(qs.data().formatos);
+            switch(formato){
+                case 'tapaDura':
+                    stockLeft = qs.data().formatos.tapaDura.stock;
+                    return qs.data().formatos.tapaDura;
+                    break;
+                case 'tapaBlanda':
+                    stockLeft = qs.data().formatos.tapaBlanda.stock;
+                    return qs.data().formatos.tapaBlanda.stock;
+                    break;
+                case 'ebook':
+                    stockLeft = qs.data().formatos.ebook.stock;
+                    return qs.data().formatos.ebook.stock;
+                    break; 
+            }
+            
+        })
+        .then(qs=>{
+            items.update({
+                formatos:{
+                    tapadura: {
+                        stock: 2
+                    }
+                }
+            });
+        })
+        .catch(err => console.error(err))
+        .finally(qs => console.log(qs))
+    }
+
     const searchPrice=(libro, formatoLibro)=>{
         let price = 0
         switch(formatoLibro){
@@ -109,7 +201,7 @@ export const CarritoFunctions = ({children}) => {
     
 
     return(
-        <CarritoContext.Provider value={{addItem, deleteItem, cleanCart,total, cart, costoEnvio}}>
+        <CarritoContext.Provider value={{addItem, checkStock, stock, deleteItem, cleanCart,total, cart, costoEnvio, createOrder, idPedido}}>
             {children}
         </CarritoContext.Provider>
     )

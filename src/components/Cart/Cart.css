@@ -91,3 +91,16 @@ span.cartDeleteItem{
     font-weight: 100;
     font-size: 1rem;
 }
+
+button#order-btn{
+    background: rgb(27, 102, 200);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+h4#finalizacion-pedido{
+    margin-top: 25px;
+}

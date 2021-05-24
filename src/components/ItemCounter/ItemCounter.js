@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import './ItemCounter.css';
+import {CarritoContext} from '../../context/CarritoContext'
 
 export default function ItemCounter (){
-  
+    
+    const {stock} = useContext(CarritoContext);
+
     const [count, setCount] = useState(1)
+
+    useEffect(()=>{
+        count>stock && setCount(stock)
+    }, [stock])
 
     const onAdd = e =>{
         e.preventDefault();
-        setCount(count+1);
+        if(stock>count){
+            setCount(count+1);
+        }
     }
 
     const onSubstract = e =>{

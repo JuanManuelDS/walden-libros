@@ -7,8 +7,7 @@ export const UserContext = createContext([]);
 
 export const UserFunctions = ({children}) => {
     const history = useHistory();
-
-    const [user, setUSer] = useState({});
+    /*------------FORM HELPERS---------------------*/
     const [nameHelper, setNameHelper] = useState('');
     const [surnameHelper, setSurnameHelper] = useState('');
     const [emailHelper, setEmailHelper] = useState('');
@@ -17,7 +16,8 @@ export const UserFunctions = ({children}) => {
     const [password, setPassword] = useState('');
     const [tcHelper, setTcHelper] = useState('');
     const [tcState, setTcState] = useState(false);
-    const [generalHelper, setGeneralHelper] = useState('')
+    const [generalHelper, setGeneralHelper] = useState('');
+    /*-----------------------------------------------------*/
     const validationInitialization={
         name: false,
         surname: false,
@@ -27,13 +27,27 @@ export const UserFunctions = ({children}) => {
     }
     const [validation, setValidation] = useState(validationInitialization);
 
+    const [user, setUser] = useState(
+        localStorage.getItem('usuario')
+          ? JSON.parse(localStorage.getItem('usuario'))
+          : {}
+    );
     
+
     useEffect(()=>{
         if(user.name){
             const dataBase = getFirestore();
+            //Primero chequeo si ya existe un usuario por su email
             const users = dataBase.collection('users');
-            users.add(user);
-            console.log('me ejecuté')
+            users.where('email', '==', user.email).get().then(qs=>{
+                if(qs.empty){
+                   users.add(user);
+                   saveUser(); 
+                } else{
+                    console.log('El usuario ya se encuentra registrado');
+                }
+            })
+
         }
     },[user])
     
@@ -45,13 +59,18 @@ export const UserFunctions = ({children}) => {
             let user = {
             name: e.target.parentElement.querySelector('#login-nombre').value,
             surname: e.target.parentElement.querySelector('#login-apellido').value,
-            email: e.target.parentElement.querySelector('#login-email').value,
-            password: e.target.parentElement.querySelector('#login-password').value
+            email: e.target.parentElement.querySelector('#login-email').value
             }
-            setUSer(user);
+            setUser(user);
             history.push('/cart');
         } 
     }
+
+    function saveUser(){
+        localStorage.setItem('usuario', JSON.stringify(user))
+    }
+
+    /*-----------------------REGISTER FORM VALIDATION -----------------------*/
 
     function validateForm (){
         if(Object.values(validation).indexOf(false)=== -1){

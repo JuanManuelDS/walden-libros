@@ -23,7 +23,6 @@ export default function Home(){
             })
             setTop3(top3)
         })
-        .then(()=>console.log(top3))
         .catch(err => console.log(err))
         .finally(()=>setLoading(false))
     }, [])
