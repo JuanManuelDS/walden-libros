@@ -1,0 +1,51 @@
+div#login-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75vh;
+    width: 100%;
+}
+
+div#login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 20px 0px;
+    width: 300px;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 35px;
+}
+
+div#login>*{
+    margin-top: 10px;
+    width: 75%;
+}
+
+p#login-helper{
+    margin: 3px;
+}
+
+div#login>button{
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+button#login-is-btn{
+    background-color: rgb(0, 140, 255);
+}
+
+button#login-reg-btn{
+    background-color: rgb(60, 202, 41);
+}
+
+p#login-helper{
+    font-weight: bold;
+    color: red;
+}
+

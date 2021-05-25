@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react';
 import { useHistory} from 'react-router-dom';
+import CartWidget from '../components/Cart/CartWidget/CartWidget';
 import { getFirestore } from '../firebase';
-import firebase from 'firebase/app'
 
 export const UserContext = createContext([]);
 
@@ -18,6 +18,7 @@ export const UserFunctions = ({children}) => {
     const [tcState, setTcState] = useState(false);
     const [generalHelper, setGeneralHelper] = useState('');
     /*-----------------------------------------------------*/
+    const [loginHelper, setLoginHelper] = useState('');
     const validationInitialization={
         name: false,
         surname: false,
@@ -42,12 +43,13 @@ export const UserFunctions = ({children}) => {
             users.where('email', '==', user.email).get().then(qs=>{
                 if(qs.empty){
                    users.add(user);
-                   saveUser(); 
+                   saveUser();
+                   return qs 
                 } else{
                     console.log('El usuario ya se encuentra registrado');
                 }
             })
-
+            saveUser();
         }
     },[user])
     
@@ -68,6 +70,41 @@ export const UserFunctions = ({children}) => {
 
     function saveUser(){
         localStorage.setItem('usuario', JSON.stringify(user))
+    }
+
+    /*---------------------LOG IN VALIDATION------------------------*/
+
+    function login(father){
+        let email = father.querySelector('#login-email').value;
+        let password = father.querySelector('#login-password').value;
+
+        const db = getFirestore();
+        const items = db.collection('users').where('email', '==', email);
+        items.get()
+        .then(qs=>{
+            if(qs.empty){
+                setLoginHelper('Usuario no registrado');
+            } else {
+                setUser(qs.docs[0].data());
+            }
+        })
+        .catch(err=>console.error('Error: ', err))
+        .finally(()=>{
+            history.push('/home')
+        })
+    }
+
+    /*------------------ ACCOUNT MANAGEMENT --------------------*/
+    function logOut(){
+        localStorage.removeItem('usuario');
+        setUser({});
+        history.push('/home')
+    }
+
+    function deleteAccount(){
+        const db = getFirestore();
+        const userToDelete = db.collection('users').where('email', '==', user.email);
+        userToDelete.get().then(qs=> qs.docs[0].delete())
     }
 
     /*-----------------------REGISTER FORM VALIDATION -----------------------*/
@@ -171,7 +208,7 @@ export const UserFunctions = ({children}) => {
     }
 
     return (
-        <UserContext.Provider value={{addUser, user, nameHelp, nameHelper, surnameHelper, surnameHelp, emailHelp, emailHelper, passwordHelp, passwordHelper, confirmationPassHelp, confirmationPassHelper, setPassword, tcHelp, tcHelper, generalHelper}}>
+        <UserContext.Provider value={{loginHelper,addUser, user, nameHelp, nameHelper, surnameHelper, surnameHelp, emailHelp, emailHelper, passwordHelp, passwordHelper, confirmationPassHelp, confirmationPassHelper, setPassword, tcHelp, tcHelper, generalHelper, login, logOut, deleteAccount}}>
             {children}
         </UserContext.Provider>
     )

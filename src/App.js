@@ -8,8 +8,11 @@ import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
 import Cart from'./components/Cart/Cart';
 import {CarritoFunctions} from './context/CarritoContext';
-import Login from './components/Login/Login';
 import {UserFunctions} from './context/UserContext'
+import OrderView from './components/OrderView/OrderView';
+import Login from './components/User/Login/Login';
+import Register from './components/User/Register/Register';
+import User from './components/User/User'
 
 function App() {
   return (
@@ -39,6 +42,18 @@ function App() {
 
             <Route exact path='/login'>
               <Login />
+            </Route>
+
+            <Route exact path='/register'>
+              <Register />
+            </Route>
+
+            <Route exact path='/user'>
+              <User />
+            </Route>
+
+            <Route exact path='/order'>
+              <OrderView />
             </Route>
 
             <Route path='/'>

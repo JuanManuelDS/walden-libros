@@ -40,10 +40,6 @@ export default function Cart(){
                     <h4>Total: ${total+costoEnvio}</h4>
                 </div>
                 <button id='order-btn' onClick={createOrder}>Realizar pedido</button>
-                {idPedido ? 
-                    <h4 id='finalizacion-pedido'>Id del pedido: {idPedido}</h4>
-                :
-                <></>}
             </>
             :
             <>

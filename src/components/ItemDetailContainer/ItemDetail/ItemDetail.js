@@ -33,13 +33,13 @@ export default function ItemDetail({libro}) {
                         <option value='tapaBlanda'>Tapa blanda ${libro.formatos.tapaBlanda.precio}</option>
                         <option value='ebook'>Ebook ${libro.formatos.ebook.precio}</option>
                     </select>
-                    {itemCountVisibility ? 
+                    {stock && itemCountVisibility ? 
                         <input type='submit' onClick={(e)=>addItem(e,libro,setItemCountVisibility)} value='Agregar al Carrito'  />
                         :
                         //En caso de haberse escondido el contador le saco la funcionalidad al botón para evitar errores
-                        <input type='submit' onClick={e=>e.preventDefault()} value='Agregar al Carrito'  />
+                        <input type='submit' className='notActive' onClick={e=>e.preventDefault()} value='Agregar al Carrito'  />
                     }
-                    <p id='stock-info'>Cantidad en stock: {stock}</p>
+                    <p id='stock-info' className={!stock ? 'stock-alert': ''}>Cantidad en stock: {stock}</p>
                 </form>
             </div>
         </div>

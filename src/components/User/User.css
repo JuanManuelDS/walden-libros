@@ -1,0 +1,18 @@
+div#user-container{
+    width: 100%;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div#client-options{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div#user-options>*{
+    margin: 10px auto;
+}

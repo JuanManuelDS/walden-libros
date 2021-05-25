@@ -10,6 +10,7 @@ export default function ItemCounter (){
 
     useEffect(()=>{
         count>stock && setCount(stock)
+        count<stock && setCount(1)
     }, [stock])
 
     const onAdd = e =>{
