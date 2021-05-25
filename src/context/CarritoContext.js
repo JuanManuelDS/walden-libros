@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { getFirestore} from '../firebase';
 import {useHistory} from 'react-router-dom'
+import { queryByDisplayValue } from '@testing-library/dom';
 
 export const CarritoContext = React.createContext([]);
 
@@ -132,39 +133,88 @@ export const CarritoFunctions = ({children}) => {
     function updateStock(order){
         const formato = order.items[0].format;
         const cantidad = order.items[0].quantity;
+        let itemActualizado = {};
         let stockLeft= 0;
         const db = getFirestore();
-        const items = db.collection('items').doc(order.items[0].item.id);
-        items.get()
+        const item = db.collection('items').doc(order.items[0].item.id);
+        item.get().then(qs=>{
+            switch(formato){
+                case 'tapaDura':
+                    itemActualizado = {...qs.data().formatos,
+                        tapaDura: {
+                            stock: qs.data().formatos.tapaDura.stock - cantidad,
+                            id: qs.data().formatos.tapaDura.id,
+                            precio: qs.data().formatos.tapaDura.precio
+                        }
+                    }
+                    return itemActualizado;
+                case 'tapaBlanda':
+                    itemActualizado = {...qs.data().formatos,
+                        tapaBlanda:{
+                            stock: qs.data().formatos.tapaBlanda.stock - cantidad,
+                            id: qs.data().formatos.tapaBlanda.id,
+                            precio: qs.data().formatos.tapaBlanda.precio
+                        }
+                    }
+                    return itemActualizado;
+                case 'ebook':
+                    itemActualizado = {...qs.data().formatos,
+                        ebook: {
+                            stock: qs.data().formatos.ebook.stock,
+                            id: qs.data().formatos.ebook.id,
+                            precio: qs.data().formatos.ebook.precio
+                        }
+                    }
+                    return itemActualizado;
+            }
+        }).catch(error => console.error('Error: ', error))
+        .finally(()=>{
+            item.update({formatos: itemActualizado});
+        })
+            /* console.log(formatos: {...qs,newObj}) */
+            /* item.set({
+                formatos: {...qs, newObj}
+            }) */
+        
+        /* item.update({
+            formatos:{
+                ebook: {id: 1001, stock: 99 999, precio: 500},
+                tapaBlanda: {stock: 5, precio: 1200, id: 1002},
+                tapaDura: {stock: 3, id: 1003, precio: 1900}
+            }
+        }).then(()=>console.log('exito')) */
+        /* item.get()
         .then(qs=>{
             console.log(qs.data().formatos);
             switch(formato){
                 case 'tapaDura':
-                    stockLeft = qs.data().formatos.tapaDura.stock;
-                    return qs.data().formatos.tapaDura;
+                    stockLeft = qs.data().formatos.tapaDura.stock - cantidad;
                     break;
                 case 'tapaBlanda':
-                    stockLeft = qs.data().formatos.tapaBlanda.stock;
-                    return qs.data().formatos.tapaBlanda.stock;
+                    stockLeft = qs.data().formatos.tapaBlanda.stock - cantidad;
                     break;
                 case 'ebook':
-                    stockLeft = qs.data().formatos.ebook.stock;
-                    return qs.data().formatos.ebook.stock;
-                    break; 
+                    stockLeft = qs.data().formatos.ebook.stock - cantidad;
+                    break;
             }
-            
+            const objeto = {
+                ...order.items[0].item.formatos[formato],
+            };
+            console.log(objeto)
+            return qs.data().formatos;
         })
-        .then(qs=>{
-            items.update({
+        .then(qs => {
+            item.update({
                 formatos:{
-                    tapadura: {
-                        stock: 2
-                    }
+                    ebook: {id: 1001, stock: 99999, precio: 500},
+                    tapaBlanda: {stock: 5, precio: 1200, id: 1002},
+                    tapaDura: {stock: 3, id: 1003, precio: 1900}
                 }
             });
+
         })
         .catch(err => console.error(err))
-        .finally(qs => console.log(qs))
+        .finally(qs => console.log(qs)) */
     }
 
     const searchPrice=(libro, formatoLibro)=>{
