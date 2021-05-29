@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { getFirestore} from '../firebase';
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom';
+import firebase from 'firebase/app'
 
 export const CarritoContext = React.createContext([]);
 
@@ -99,7 +100,8 @@ export const CarritoFunctions = ({children}) => {
         let order = {
             buyer: user,
             items: cart,
-            total: total
+            date: firebase.firestore.Timestamp.fromDate(new Date()),
+            total //es lo mismo que hacer total: total
         }
         const db = getFirestore();
         const orders = db.collection('orders');
