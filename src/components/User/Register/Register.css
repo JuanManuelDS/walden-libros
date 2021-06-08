@@ -17,9 +17,15 @@ form#login-form>label{
     margin: 10px 0px;
 }
 
+form#login-form input {
+    width: 250px;
+}
+
 form#login-form{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 span.helper{

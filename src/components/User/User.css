@@ -6,11 +6,27 @@ div#user-container{
     justify-content: center;
 }
 
-div#client-options{
+div#user-options{
     width: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    
+}
+
+div#user-options>button {
+    display: block;
+    width: 300px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(9, 70, 182);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+div#user-options>button:hover{
+    background-color: rgb(0, 43, 124);
 }
 
 div#user-options>*{

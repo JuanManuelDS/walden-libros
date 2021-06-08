@@ -34,9 +34,20 @@ nav ul li {
     padding: 0px 40px;
 }
 
+#user-icon {
+    float: right;
+    margin: 20px 10px;
+}
+
+#user-icon:hover,
+#carrito-img:hover {
+    cursor: pointer;
+}
+
 #carrito-img{ 
     float: right;
     margin: 22.5px 50px 22.5px 10px;
     width: 35px;
     height: 35px;
 }
+

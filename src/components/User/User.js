@@ -4,7 +4,7 @@ import './User.css';
 import {useHistory} from 'react-router-dom';
 
 export default function User(){
-    const {user, logOut, deleteAccount} = useContext(UserContext);
+    const {user, logOut, deleteAccount, updateUserData} = useContext(UserContext);
     const history = useHistory();
 
     return(
@@ -12,7 +12,7 @@ export default function User(){
             <div id='user-options'>
                 <button onClick={logOut}>Cerrar sesión</button>
                 <button onClick={deleteAccount}>Eliminar cuenta</button>
-                <button>Modificar información personal</button>
+                <button onClick={updateUserData}>Modificar información personal</button>
                 <button>Revisar órdenes</button>
             </div>
         </div>

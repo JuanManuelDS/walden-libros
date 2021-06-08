@@ -15,11 +15,11 @@ export default function NavBar () {
         <nav className='navBar'>
             <div>
                 <CartWidget />
-                <BiUserCircle onClick={()=>history.push(user.name ? '/user' : '/login')} size={'40px'} id='user-icon'/>
                 <ul>
                     <li><Link to={'/'} style={{color: 'white', textDecoration: 'none'}}>Home</Link></li>
                     <li> <Link to={'/categories'} style={{color: 'white', textDecoration: 'none'}}>Libros</Link></li>
                 </ul>
+                <BiUserCircle onClick={()=>history.push(user.name ? '/user' : '/login')} size={'40px'} id='user-icon'/>
                 
                 <span>
                     <Link to={'/'} style={{color: 'white', textDecoration: 'none'}}>Walden Libros</Link>

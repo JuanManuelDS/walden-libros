@@ -14,7 +14,7 @@
             <div id='login-container'>
                 <div id='login'>
                     <BiUserCircle size={'7rem'} color={'gray'} />
-                    <input type='text' placeholder='Email' id='login-email'     />
+                    <input type='text' placeholder='Email' id='login-email' />
                     <input type='password' placeholder='Contraseña' id='login-password' />
                     <p id='login-helper'>{loginHelper}</p>
                     <button id='login-is-btn' onClick={e=>login(e.target.parentElement)}>Iniciar sesión</button>
