@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# Walden Libros
+
+Walden libros es una de las ramas del Proyecto Walden, cuyo objetivo es la difusión y venta de libros que se encuentren en relación con la problemática ambiental y humana en general. 
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
