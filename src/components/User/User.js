@@ -4,7 +4,7 @@ import './User.css';
 import {useHistory} from 'react-router-dom';
 
 export default function User(){
-    const {user, logOut, deleteAccount, updateUserData, checkOrders} = useContext(UserContext);
+    const {user, logOut, deleteAccount} = useContext(UserContext);
     const history = useHistory();
 
     return(

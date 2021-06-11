@@ -280,7 +280,7 @@ export const UserFunctions = ({children}) => {
     }
 
     return (
-        <UserContext.Provider value={{loginHelper,createUser, user, nameHelp, nameHelper, surnameHelper, surnameHelp, emailHelp, emailHelper, passwordHelp, passwordHelper, confirmationPassHelp, confirmationPassHelper, setPassword, tcHelp, tcHelper, generalHelper, login, logOut, deleteAccount, updateUserData, checkOrders}}>
+        <UserContext.Provider value={{loginHelper,createUser, user, nameHelp, nameHelper, surnameHelper, surnameHelp, emailHelp, emailHelper, passwordHelp, passwordHelper, confirmationPassHelp, confirmationPassHelper, setPassword, tcHelp, tcHelper, generalHelper, login, logOut, deleteAccount}}>
             {children}
         </UserContext.Provider>
     )
