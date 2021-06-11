@@ -5,6 +5,7 @@ import { getFirestore } from '../firebase';
 import firebase from 'firebase'
 import { BiShowAlt } from 'react-icons/bi';
 import Swal from 'sweetalert2';
+import { findByLabelText } from '@testing-library/dom';
 
 export const UserContext = createContext([]);
 
@@ -176,10 +177,7 @@ export const UserFunctions = ({children}) => {
         })
     }
 
-    function updateUserData(){
-        
-    }
-
+    
 
     /*-----------------------REGISTER FORM VALIDATION -----------------------*/
 
@@ -282,7 +280,7 @@ export const UserFunctions = ({children}) => {
     }
 
     return (
-        <UserContext.Provider value={{loginHelper,createUser, user, nameHelp, nameHelper, surnameHelper, surnameHelp, emailHelp, emailHelper, passwordHelp, passwordHelper, confirmationPassHelp, confirmationPassHelper, setPassword, tcHelp, tcHelper, generalHelper, login, logOut, deleteAccount, updateUserData}}>
+        <UserContext.Provider value={{loginHelper,createUser, user, nameHelp, nameHelper, surnameHelper, surnameHelp, emailHelp, emailHelper, passwordHelp, passwordHelper, confirmationPassHelp, confirmationPassHelper, setPassword, tcHelp, tcHelper, generalHelper, login, logOut, deleteAccount, updateUserData, checkOrders}}>
             {children}
         </UserContext.Provider>
     )

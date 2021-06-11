@@ -98,7 +98,7 @@ export const CarritoFunctions = ({children}) => {
     function createOrder(){
         const user = JSON.parse(localStorage.getItem('usuario'));
         let order = {
-            buyer: user,
+            buyer: user.uid,
             items: cart,
             date: firebase.firestore.Timestamp.fromDate(new Date()),
             total //es lo mismo que hacer total: total
@@ -109,12 +109,12 @@ export const CarritoFunctions = ({children}) => {
         .then(({id})=>{
             setIdPedido(id);
         })
-        .catch(err=>console.error(err))
-        .finally(()=>{
+        .then(()=>{
             updateStock(order);
             cleanCart();
             history.push('/order')
         })
+        .catch(err=>console.error('Ha ocurrido un error al crear la orden', err))
     }
 
     function checkStock(libro,e=null){

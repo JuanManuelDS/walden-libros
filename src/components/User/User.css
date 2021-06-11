@@ -4,6 +4,7 @@ div#user-container{
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 div#user-options{
@@ -31,4 +32,14 @@ div#user-options>button:hover{
 
 div#user-options>*{
     margin: 10px auto;
+}
+
+div#user-ordenes{
+    width: fit-content;
+    height: auto;
+    position: absolute;
+    margin: 100px auto;
+    z-index: 2;
+    background: white;
+    
 }
